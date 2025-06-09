@@ -1,0 +1,178 @@
+1. open() Function – Syntax
+open(file, mode='r', buffering=-1, encoding=None)
+
+Common Modes:
+Mode	Purpose	Notes
+'r'	Read (default)	Error if file doesn’t exist
+'w'	Write (overwrite)	Creates new file if missing
+'a'	Append	Writes at end, creates if needed
+'rb'/'wb'	Read/Write binary	Use for images, zips, etc.
+
+Always use with open(...) as f: for safe handling (auto-closes the file).
+
+2. Reading from a File
+Methods:
+f.read()        # Reads entire file
+f.readline()    # Reads one line
+f.readlines()   # Reads all lines into a list
+for line in f:  # Preferred for large files (memory-efficient)
+Example:
+with open("log.txt", "r") as f:
+    for line in f:
+        print(line.strip())
+
+3. Writing to a File
+Methods:
+f.write("text")              # Write string (no newline auto-added)
+f.writelines(["a\n", "b\n"]) # Writes multiple lines (must include \n)
+Example:
+with open("output.txt", "w") as f:
+    f.write("Deployment completed.\n")
+
+4. Exception-Safe File Access
+python
+try:
+    with open("data.txt") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("File does not exist.")
+
+5. Working with Config Files
+python
+# Sample: config.txt
+# ENV=prod
+# REGION=us-east-1
+with open("config.txt") as f:
+    for line in f:
+        if "=" in line:
+            key, value = line.strip().split("=", 1)
+            print(f"{key} => {value}")
+
+
+
+parsing json and yaml in python
+import json
+with open("config.json") as f:
+    data = json.load(f)
+
+import yaml
+with open("config.yaml") as f:
+    data = yaml.safe_load(f)
+
+subprocess.check_output() – Run a command and capture the output.
+
+subprocess.run() – Run a command with more control, such as error handling and more.
+json.load() – Parse JSON from a file.
+
+json.loads() – Parse JSON from a string.
+
+json.dumps() – Convert Python objects to JSON strings.
+yaml.safe_load(yaml_data)
+with open('output.yaml', 'w') as f:
+    yaml.dump(data, f)
+
+
+
+Common shutil Functions Cheat Sheet -- 
+Function	Description
+shutil.
+copy(src, dst)	Copy file (no metadata)
+copy2(src, dst)	Copy file (with metadata)
+copytree(src, dst)	Copy full directory
+move(src, dst)	Move or rename file/folder
+rmtree(path)	Delete entire folder recursively
+make_archive(...)	Create .zip or .tar.gz archive
+disk_usage(path)	Get total/used/free disk space info
+
+
+📦 S3 (Simple Storage Service)
+Task	Code Snippet
+Create client	s3 = boto3.client("s3")
+List buckets	s3.list_buckets()
+List objects in bucket	s3.list_objects_v2(Bucket="my-bucket")
+Upload file	s3.upload_file("local.txt", "bucket", "remote.txt")
+Download file	s3.download_file("bucket", "remote.txt", "local.txt")
+Delete object	s3.delete_object(Bucket="bucket", Key="file.txt")
+Create bucket	s3.create_bucket(Bucket="my-bucket")
+
+🖥️ EC2
+Task	Code Snippet
+Create client	ec2 = boto3.client("ec2")
+List instances	ec2.describe_instances()
+Start instance	ec2.start_instances(InstanceIds=["i-123"])
+Stop instance	ec2.stop_instances(InstanceIds=["i-123"])
+Terminate instance	ec2.terminate_instances(InstanceIds=["i-123"])
+
+👤 IAM
+Task	Code Snippet
+Create client	iam = boto3.client("iam")
+List users	iam.list_users()
+List access keys for user	iam.list_access_keys(UserName="username")
+Delete user	iam.delete_user(UserName="username")
+
+Method	Syntax
+GET	requests.get(url)
+POST	requests.post(url, data/json/files)
+PUT	requests.put(url, data)
+PATCH	requests.patch(url, data)
+DELETE	requests.delete(url)
+
+🔧 os Module (File Operations)
+Task	Code Snippet
+Get current working directory	os.getcwd()
+Change working directory	os.chdir("/path/to/dir")
+List files in a directory	os.listdir("/path/to/dir")
+Check if file/directory exists	os.path.exists("file.txt")
+Delete a file	os.remove("file.txt")
+Get file size	os.path.getsize("file.txt")
+
+📂 shutil Module (File/Directory Operations)
+Task	Code Snippet
+Copy a file	shutil.copy("file.txt", "copy.txt")
+Move a file	shutil.move("file.txt", "new_location/")
+Delete a directory	shutil.rmtree("directory")
+Copy a directory	shutil.copytree("source_dir", "destination_dir")
+
+📦 gzip Module (Compression)
+
+with open("file.txt", "rb") as f_in:
+    with gzip.open("file.txt.gz", "wb") as f_out:
+        f_out.writelines(f_in)
+``` |
+| Decompress a file            | 
+```python
+with gzip.open("file.txt.gz", "rb") as f_in:
+    content = f_in.read()
+    print(content.decode())
+``` |
+
+---
+
+## 🛠️ **Useful File Paths/Permissions Operations (os)**
+
+| Task                         | Code Snippet                                      |
+|------------------------------|---------------------------------------------------|
+| Check if path is a file      | `os.path.isfile("file.txt")`                      |
+| Check if path is a directory | `os.path.isdir("directory/")`                     |
+| Join paths                   | `os.path.join("folder", "subfolder", "file.txt")`  |
+
+---
+
+## ✅ **Common Use Cases in DevOps**
+
+- **Backup Logs:**
+  - Compress logs before moving to a remote server.
+  - Example: Use `gzip` to create `.gz` backups.
+  
+- **Temporary Files:**
+  - Create temporary files for CI pipeline execution using `tempfile`.
+
+- **Log File Rotation:**
+  - Move old log files to an archive folder using `shutil.move()`.
+
+- **Directory Cleanup:**
+  - Use `shutil.rmtree()` to recursively delete old directories or temp files.
+
+---
+
+Let me know if you'd like to practice with some **file handling tasks**, or if you’re ready for the next lesson on **Regex for Log Parsing and Data Extraction**!
