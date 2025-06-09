@@ -85,7 +85,7 @@ make_archive(...)	Create .zip or .tar.gz archive
 disk_usage(path)	Get total/used/free disk space info
 
 
-📦 S3 (Simple Storage Service)
+S3 (Simple Storage Service)
 Task	Code Snippet
 Create client	s3 = boto3.client("s3")
 List buckets	s3.list_buckets()
@@ -95,7 +95,7 @@ Download file	s3.download_file("bucket", "remote.txt", "local.txt")
 Delete object	s3.delete_object(Bucket="bucket", Key="file.txt")
 Create bucket	s3.create_bucket(Bucket="my-bucket")
 
-🖥️ EC2
+EC2
 Task	Code Snippet
 Create client	ec2 = boto3.client("ec2")
 List instances	ec2.describe_instances()
@@ -103,7 +103,7 @@ Start instance	ec2.start_instances(InstanceIds=["i-123"])
 Stop instance	ec2.stop_instances(InstanceIds=["i-123"])
 Terminate instance	ec2.terminate_instances(InstanceIds=["i-123"])
 
-👤 IAM
+IAM
 Task	Code Snippet
 Create client	iam = boto3.client("iam")
 List users	iam.list_users()
@@ -117,7 +117,7 @@ PUT	requests.put(url, data)
 PATCH	requests.patch(url, data)
 DELETE	requests.delete(url)
 
-🔧 os Module (File Operations)
+os Module (File Operations)
 Task	Code Snippet
 Get current working directory	os.getcwd()
 Change working directory	os.chdir("/path/to/dir")
@@ -126,14 +126,14 @@ Check if file/directory exists	os.path.exists("file.txt")
 Delete a file	os.remove("file.txt")
 Get file size	os.path.getsize("file.txt")
 
-📂 shutil Module (File/Directory Operations)
+shutil Module (File/Directory Operations)
 Task	Code Snippet
 Copy a file	shutil.copy("file.txt", "copy.txt")
 Move a file	shutil.move("file.txt", "new_location/")
 Delete a directory	shutil.rmtree("directory")
 Copy a directory	shutil.copytree("source_dir", "destination_dir")
 
-📦 gzip Module (Compression)
+(Compression)
 
 with open("file.txt", "rb") as f_in:
     with gzip.open("file.txt.gz", "wb") as f_out:
@@ -148,7 +148,7 @@ with gzip.open("file.txt.gz", "rb") as f_in:
 
 ---
 
-## 🛠️ **Useful File Paths/Permissions Operations (os)**
+**Useful File Paths/Permissions Operations (os)**
 
 | Task                         | Code Snippet                                      |
 |------------------------------|---------------------------------------------------|
@@ -158,7 +158,7 @@ with gzip.open("file.txt.gz", "rb") as f_in:
 
 ---
 
-## ✅ **Common Use Cases in DevOps**
+**Common Use Cases in DevOps**
 
 - **Backup Logs:**
   - Compress logs before moving to a remote server.
@@ -174,5 +174,3 @@ with gzip.open("file.txt.gz", "rb") as f_in:
   - Use `shutil.rmtree()` to recursively delete old directories or temp files.
 
 ---
-
-Let me know if you'd like to practice with some **file handling tasks**, or if you’re ready for the next lesson on **Regex for Log Parsing and Data Extraction**!
